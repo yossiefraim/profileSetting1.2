@@ -1,0 +1,59 @@
+<!doctype html>
+  <html>
+            <head></head>
+             <body>
+              <p>
+                <h1>VOD profile setting WS API</h1>
+                <p>The profile setting WS help you to manage the VOD profile settings.
+                   view the settings keys, view one profile setting and sort profiles by age and gender.
+                </p>
+                <p>WS based on Heroku <a href="https://profile-settings.herokuapp.com">https://profile-settings.herokuapp.com</a></p>
+              </p>
+              <p>
+                <h3>Get Setting Options - Get method</h3>
+                <p>This function returns all the keys of the profile setting.</p>
+                <p>after using this function you will know what is the structre of the the profile setting in the json data file.</p>
+                <p> exemple:
+                {
+                  keys: [
+                    "id",
+                    "name",
+                    "password",
+                    "city",
+                    "age",
+                    "gender",
+                    "payment"{
+                      type,
+                      owner
+                    }
+                  ]
+                }   
+                </p>
+                <p>this function not require any parameters, just use the below URL:</p>
+                <a href="https://profile-settings.herokuapp.com/getAllSettingOptions">https://profile-settings.herokuapp.com<mark>/getAllSettingOptions</mark></a>
+                <hr>
+              </p>
+              <p>
+                <h3>Get User setting by Id - Post method </h3>
+                <p>This function returns sepcific profile setting by sending an profile_id parameter <b>Int </b>number.</p>
+                <p>after using this function you will receive a json file with all the user profile details.</p>
+                <p>the profile_id parameter is integer number and you must sent a known profile_id number esle you will receive an error massge:"{"error":"profile_id parameter invalid"}"</p>
+                <p>if there is no match profile to the profile_id you will receive error massge : {"error":"profile not found"}</p>
+                <a href="https://profile-settings.herokuapp.com/getUserProfileSetting">https://profile-settings.herokuapp.com/getUserProfileSetting<mark>/profile_id</mark></a>
+                <hr>
+              </p>
+              <p>
+                <h3>Get User profile by age and payment method - Post method</h3>
+                <p>This function returns all profile that Below a certain age and pay with specific payment method</p>
+                <p>This function require 2 parameters, the first to send is <b>age</b> - an integer number.</p>
+                <p>The second parameter is <b>payment</b> - credit card or direct debit.</p>
+                <p>if one of the parameters wrong you will receive an error massge:{"error":"payment parameter invalid"} or {"error":"age parameter invalid"}</p>
+                <p>if there is no match profile to age and payment parameters you will receive error massge : {"error":"there is no profile match to age and payment parameters"}</p>
+                <a href="https://profile-settings.herokuapp.com/getUserProfileByParams">https://profile-settings.herokuapp.com/getUserProfileByParams<mark>/age/payment</mark></a>                
+                <hr>
+              </p>
+              <footer>
+                <small>&copy; Shenkar College, Yossi Efraim</small>
+              </footer>
+             </body>
+            </html>
