@@ -21,28 +21,26 @@ conn.on('error',
     console.log(`connection error: ${err}`);
 });
 
-exports.getUserProfileSetting = function(profile_id){
+exports.getUserProfileSetting = ((profile_id)=>{
        
-        let query = new Promise(function(resolve,reject){
+        let query = new Promise((resolve,reject)=>{
           if(profile.find({id:{$eq:profile_id}})){
             resolve(profile.find({id:{$eq:profile_id}}));
           }else{
             reject('query error');
           }
         });
-        return query.then(function(fromReslove){
-          console.log('from resolve'+fromReslove);
+        return query.then((fromReslove)=>{
           return fromReslove;
-        }).catch(function(fromReject){
-          console.log('from reject'+fromReject);
+        }).catch((fromReject)=>{
           return fromReject;
         });
         mongoose.disconnect();
-}
+});
 
-exports.getUserProfileByParams = function(age,payment){
+exports.getUserProfileByParams = ((age,payment)=>{
      
-        let query = new Promise(function(resolve,reject){
+        let query = new Promise((resolve,reject)=>{
           if(profile.find({age:{$lt:age},'payment.type':{$eq:payment}}))
           {
             resolve(profile.find({age:{$lt:age},'payment.type':{$eq:payment}}));
@@ -51,12 +49,10 @@ exports.getUserProfileByParams = function(age,payment){
             reject('query error');
           }
         });
-        return query.then(function(fromReslove){
-          console.log('from resolve'+fromReslove);
+        return query.then((fromReslove)=>{
           return fromReslove;
-        }).catch(function(fromReject){
-          console.log('from reject'+fromReject);
+        }).catch((fromReject)=>{
           return fromReject;
         });  
         mongoose.disconnect();          
-}
+});

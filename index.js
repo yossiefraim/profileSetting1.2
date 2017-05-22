@@ -21,7 +21,7 @@ app.get('/getAllSettingOptions/',
 
 app.post('/getUserProfileSetting',
   (req,res) => {
-    let succ = new Promise(function(resolve,reject){ 
+    let succ = new Promise((resolve,reject)=>{ 
       if(operator.getUserProfileSetting(parseInt(req.body.profile_id)))
       {
         resolve(operator.getUserProfileSetting(parseInt(req.body.profile_id)));
@@ -30,16 +30,16 @@ app.post('/getUserProfileSetting',
       }
     });
 
-    succ.then(function(fromResolve){
+    succ.then((fromResolve)=>{
       res.status(200).json(fromResolve);
-    }).catch(function(fromReject){
+    }).catch((fromReject)=>{
       res.status(400).send(fromReject);
     });
 });
 
 app.post('/getUserProfileByParams',
   (req,res) => {
-    let succ = new Promise (function(resolve,reject){
+    let succ = new Promise ((resolve,reject)=>{
       if(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment)){
         resolve(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment));
       }else{
@@ -47,9 +47,9 @@ app.post('/getUserProfileByParams',
       }
     });
 
-    succ.then(function(fromResolve){
+    succ.then((fromResolve)=>{
       res.status(200).json(fromResolve);
-    }).catch(function(fromReject){
+    }).catch((fromReject)=>{
       res.status(400).send(fromReject);
     });
 });
