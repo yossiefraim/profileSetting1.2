@@ -1,5 +1,4 @@
-const data   = require('./data/profiles.json'),
-      config = require('./config.js').events,
+const config = require('./config.js').events,
       consts = require('./consts'),
       express    = require('express'),
       app        = express(),
@@ -13,22 +12,30 @@ const conn = mongoose.connection;
 var profileSchema = require('./profileSchema');
 var profile = conn.model('profile',profileSchema);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-
+//handle db connection errors
 conn.on('error',
   (err) => {
     console.log(`connection error: ${err}`);
 });
 
 exports.getUserProfileSetting = ((profile_id)=>{
-       
+        //promise that handle the coonction issue
         let query = new Promise((resolve,reject)=>{
-          if(profile_id){
-            resolve(profile.find({id:{$eq:profile_id}}));
-          }else{
-            reject('Error with profile_id Parmeter');
-          }
+          //use findOne because there is only one match to profile_id
+          profile.findOne({id:{$eq:profile_id}}).exec(function(err,result){
+              if (!err){
+                //result return null but not error
+                if(result==null){
+                  reject('error:profile_id no match');
+                }else{
+                  resolve(result);
+                }
+              }
+              else{
+                reject('error:query error');
+              }
+          });
+
         });
         return query.then((fromReslove)=>{
           return fromReslove;
@@ -39,12 +46,14 @@ exports.getUserProfileSetting = ((profile_id)=>{
 });
 
 exports.getUserProfileByParams = ((age,payment)=>{
-     
+        //promise that handle the coonction issue
         let query = new Promise((resolve,reject)=>{
+          //checking parmeters content
           if(age&&payment)
           {
             resolve(profile.find({age:{$lt:age},'payment.type':{$eq:payment}}));
           }
+          //handle if parmeter content wrong
           else{
             if(!age)
               reject('Error with age Parmeter');

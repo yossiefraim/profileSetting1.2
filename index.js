@@ -1,8 +1,6 @@
 const express    = require('express'),
       bodyParser = require('body-parser'),
-      data       = require('./data/profiles.json'),
       app        = express(),
-      config = require('./config.js').events,
       port       = process.env.PORT || 3000,
       operator   = require('./profile_mdl.js'),
       mongoose = require('mongoose'),
@@ -16,17 +14,20 @@ var profileSchema = require('./profileSchema');
 
 app.get('/getAllSettingOptions/',
     (req,res) =>{
+      //return all keys from schema
       res.status(200).json(Object.keys(profileSchema.obj));
     });
 
 app.post('/getUserProfileSetting',
   (req,res) => {
+    //promise that handle the coonction issue
     let succ = new Promise((resolve,reject)=>{ 
-      console.log(parseInt(req.body.profile_id));
+      //parseInt for check if the parmeter is int
       if(parseInt(req.body.profile_id))
       {
         resolve(operator.getUserProfileSetting(parseInt(req.body.profile_id)));
       }else{
+        //the reject here handle with string 
         reject('can not exceute index/getUserProfileSetting , profile_id must be int number');
       }
     });
@@ -40,10 +41,13 @@ app.post('/getUserProfileSetting',
 
 app.post('/getUserProfileByParams',
   (req,res) => {
+    //promise that handle the coonction issue
     let succ = new Promise ((resolve,reject)=>{
+      //parseInt for check if the parmeter is int
       if(parseInt(req.body.age)){
         resolve(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment));
       }else{
+        //the reject here handle with string 
         reject('can not exceute index/getUserProfileByParams age must be int number');
       }
     });
