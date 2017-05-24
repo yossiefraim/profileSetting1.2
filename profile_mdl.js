@@ -24,10 +24,10 @@ conn.on('error',
 exports.getUserProfileSetting = ((profile_id)=>{
        
         let query = new Promise((resolve,reject)=>{
-          if(profile.find({id:{$eq:profile_id}})){
+          if(profile_id){
             resolve(profile.find({id:{$eq:profile_id}}));
           }else{
-            reject('query error');
+            reject('Error with profile_id Parmeter');
           }
         });
         return query.then((fromReslove)=>{
@@ -41,12 +41,15 @@ exports.getUserProfileSetting = ((profile_id)=>{
 exports.getUserProfileByParams = ((age,payment)=>{
      
         let query = new Promise((resolve,reject)=>{
-          if(profile.find({age:{$lt:age},'payment.type':{$eq:payment}}))
+          if(age&&payment)
           {
             resolve(profile.find({age:{$lt:age},'payment.type':{$eq:payment}}));
           }
           else{
-            reject('query error');
+            if(!age)
+              reject('Error with age Parmeter');
+           if(!payment)
+              reject('Error with payment Parmeter');
           }
         });
         return query.then((fromReslove)=>{

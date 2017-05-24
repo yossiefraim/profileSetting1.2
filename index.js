@@ -22,28 +22,29 @@ app.get('/getAllSettingOptions/',
 app.post('/getUserProfileSetting',
   (req,res) => {
     let succ = new Promise((resolve,reject)=>{ 
-      if(operator.getUserProfileSetting(parseInt(req.body.profile_id)))
+      console.log(parseInt(req.body.profile_id));
+      if(parseInt(req.body.profile_id))
       {
         resolve(operator.getUserProfileSetting(parseInt(req.body.profile_id)));
       }else{
-        reject('can not exceute index/getUserProfileSetting Promise');
+        reject('can not exceute index/getUserProfileSetting , profile_id must be int number');
       }
     });
 
     succ.then((fromResolve)=>{
       res.status(200).json(fromResolve);
     }).catch((fromReject)=>{
-      res.status(400).send(fromReject);
+      res.status(200).json(fromReject);
     });
 });
 
 app.post('/getUserProfileByParams',
   (req,res) => {
     let succ = new Promise ((resolve,reject)=>{
-      if(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment)){
+      if(parseInt(req.body.age)){
         resolve(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment));
       }else{
-        reject('can not exceute index/getUserProfileByParams Promise');
+        reject('can not exceute index/getUserProfileByParams age must be int number');
       }
     });
 

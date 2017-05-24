@@ -37,8 +37,7 @@
                 <h3>Get User setting by Id - Post method </h3>
                 <p>This function returns sepcific profile setting by sending an profile_id parameter <b>Int </b>number.</p>
                 <p>after using this function you will receive a json file with all the user profile details.</p>
-                <p>the profile_id parameter is integer number and you must sent a known profile_id number esle you will receive an error massge:"{"error":"profile_id parameter invalid"}"</p>
-                <p>if there is no match profile to the profile_id you will receive error massge : {"error":"profile not found"}</p>
+                <p>the profile_id parameter is integer number and you must sent a known profile_id number esle you will receive an error massge:"can not exceute index/getUserProfileSetting , profile_id must be int number"</p>
                 <a href="https://profile-setting-v2.herokuapp.com/getUserProfileSetting">https://profile-setting-v2.herokuapp.com/getUserProfileSetting<mark>/profile_id</mark></a>
                 <hr>
               </p>
@@ -47,8 +46,7 @@
                 <p>This function returns all profile that Below a certain age and pay with specific payment method</p>
                 <p>This function require 2 parameters, the first to send is <b>age</b> - an integer number.</p>
                 <p>The second parameter is <b>payment</b> - credit card or direct debit.</p>
-                <p>if one of the parameters wrong you will receive an error massge:{"error":"payment parameter invalid"} or {"error":"age parameter invalid"}</p>
-                <p>if there is no match profile to age and payment parameters you will receive error massge : {"error":"there is no profile match to age and payment parameters"}</p>
+                <p>if one of the parameters wrong you will receive an error massge:"Error with payment Parmeter" or ""Error with age Parmeter</p>
                 <a href="https://profile-setting-v2.herokuapp.com/getUserProfileByParams">https://profile-setting-v2.herokuapp.com/getUserProfileByParams<mark>/age/payment</mark></a>                
                 <hr>
               </p>
