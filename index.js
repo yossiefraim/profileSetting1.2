@@ -23,9 +23,9 @@ app.post('/getUserProfileSetting',
     //promise that handle the coonction issue
     let succ = new Promise((resolve,reject)=>{ 
       //parseInt for check if the parmeter is int
-      if(parseInt(req.body.profile_id))
+      if(req.body.profile_id)
       {
-        resolve(operator.getUserProfileSetting(parseInt(req.body.profile_id)));
+        resolve(operator.getUserProfileSetting(req.body.profile_id));
       }else{
         //the reject here handle with string 
         reject('can not exceute index/getUserProfileSetting , profile_id must be int number');
