@@ -11,6 +11,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 mongoose.Promise = global.Promise;
 var profileSchema = require('./profileSchema');
+app.set('port',port);
+app.use('/', express.static('./public'));//for API
+app.use(
+(req,res,next) => {
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Headers",
+"Origin, X-Requested-With, Content-Type, Accept");
+res.set("Content-Type", "application/json");
+next();
+});
 
 app.get('/getAllSettingOptions/',
     (req,res) =>{
@@ -22,13 +32,13 @@ app.post('/getUserProfileSetting',
   (req,res) => {
     //promise that handle the coonction issue
     let succ = new Promise((resolve,reject)=>{ 
-      //parseInt for check if the parmeter is int
+      //parseInt for check if the parmeter is int-
       if(req.body.profile_id)
       {
         resolve(operator.getUserProfileSetting(req.body.profile_id));
       }else{
         //the reject here handle with string 
-        reject('can not exceute index/getUserProfileSetting , profile_id must be int number');
+        reject('can not exceute index/getUserProfileSetting , profile_id must be  number');
       }
     });
 
@@ -44,8 +54,8 @@ app.post('/getUserProfileByParams',
     //promise that handle the coonction issue
     let succ = new Promise ((resolve,reject)=>{
       //parseInt for check if the parmeter is int
-      if(parseInt(req.body.age)){
-        resolve(operator.getUserProfileByParams(parseInt(req.body.age),req.body.payment));
+      if(req.body.age){
+        resolve(operator.getUserProfileByParams(req.body.age,req.body.payment));
       }else{
         //the reject here handle with string 
         reject('can not exceute index/getUserProfileByParams age must be int number');
